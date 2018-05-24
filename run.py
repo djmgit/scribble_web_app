@@ -14,7 +14,8 @@ def create_app():
 from controllers import (
     home_page,
     signup,
-    login
+    login,
+    add_note
 )
 
 app = create_app()
@@ -31,6 +32,7 @@ app.register_blueprint(resetUser.router, url_prefix='/reset')'''
 app.register_blueprint(home_page.router)
 app.register_blueprint(signup.router, url_prefix='/api')
 app.register_blueprint(login.router, url_prefix='/api')
+app.register_blueprint(add_note.router, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run()

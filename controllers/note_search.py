@@ -6,9 +6,9 @@ import requests
 from helpers.check_login import is_loggedin
 from helpers.search_notes import search_notes
 
-router = Blueprint('note_by_id', __name__)
+router = Blueprint('note_search', __name__)
 
-@router.route('/note_by_id', methods=['POST'])
+@router.route('/note_search', methods=['POST'])
 def add_note():
 	response = ""
 
@@ -28,9 +28,15 @@ def add_note():
 		response = {"status": "User is not logged in. Please login first"}
 		return jsonify(response)
 
+	search_data = data.get("search")
+	if not search_data:
+		response = {"status": "Search data is not specified"}
+		return jsonify(response)
+
 	fields = data.get("fields")
+	print (fields)
 	if not fields:
 		fields = ['note_title', 'note_body', 'keywords', 'category']
 
-	response = search_notes(hasura_id, note_id)
+	response = search_notes(hasura_id, search_data, fields)
 	return jsonify(response)

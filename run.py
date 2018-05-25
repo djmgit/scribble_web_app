@@ -17,7 +17,8 @@ from controllers import (
     login,
     add_note,
     all_notes,
-    note_by_id
+    note_by_id,
+    note_search
 )
 
 app = create_app()
@@ -37,6 +38,7 @@ app.register_blueprint(login.router, url_prefix='/api')
 app.register_blueprint(add_note.router, url_prefix='/api')
 app.register_blueprint(all_notes.router, url_prefix='/api')
 app.register_blueprint(note_by_id.router, url_prefix='/api')
+app.register_blueprint(note_search.router, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run()

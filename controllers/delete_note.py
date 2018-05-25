@@ -4,11 +4,11 @@ from flask import current_app as app
 import json
 import requests
 from helpers.check_login import is_loggedin
-from helpers.search_notes import search_notes
+from helpers.delete_by_id import delete_by_id
 
-router = Blueprint('note_search', __name__)
+router = Blueprint('delete_note', __name__)
 
-@router.route('/note_search', methods=['POST'])
+@router.route('/delete_note', methods=['POST'])
 def add_note():
 	response = ""
 
@@ -28,14 +28,10 @@ def add_note():
 		response = {"status": "User is not logged in. Please login first"}
 		return jsonify(response)
 
-	search_data = data.get("search")
-	if not search_data:
-		response = {"status": "Search data is not specified"}
+	note_id = data.get('note_id')
+	if not note_id:
+		response = {"status": "note id not specified"}
 		return jsonify(response)
 
-	fields = data.get("fields")
-	if not fields:
-		fields = ['note_title', 'note_body', 'keywords', 'category']
-
-	response = search_notes(hasura_id, search_data, fields)
+	response = delete_by_id(hasura_id, note_id)
 	return jsonify(response)

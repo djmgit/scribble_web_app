@@ -41,7 +41,7 @@ def signup():
 
 	resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 	if not resp.ok:
-		response = {"status": "Error", "data": resp.json()}
+		response = {"status": "error", "data": resp.json()}
 	else:
 		response = {"status": "ok", "data": resp.json()}
 

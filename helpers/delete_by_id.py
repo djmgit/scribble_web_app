@@ -35,7 +35,7 @@ def delete_by_id(hasura_id, note_id):
 		return response
 
 	if resp.json()["affected_rows"] == 0:
-		response = {"status": "Data not found"}
+		response = {"status": "no data found"}
 		return response
 
 	response = {"status": "ok", "data": resp.json()}
